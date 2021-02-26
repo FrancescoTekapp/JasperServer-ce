@@ -1,0 +1,140 @@
+# Generation of Kubernetes YAML is still under development!
+#
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with podman-3.0.1
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2021-02-26T15:35:14Z"
+  labels:
+    app: TKBI-JasperServer
+  name: TKBI-JasperServer
+spec:
+  containers:
+  - args:
+    - /opt/bitnami/scripts/mariadb/run.sh
+    command:
+    - /opt/bitnami/scripts/mariadb/entrypoint.sh
+    env:
+    - name: PATH
+      value: /opt/bitnami/common/bin:/opt/bitnami/mariadb/bin:/opt/bitnami/mariadb/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - name: TERM
+      value: xterm
+    - name: container
+      value: podman
+    - name: BITNAMI_IMAGE_VERSION
+      value: 10.5.8-debian-10-r81
+    - name: OS_FLAVOUR
+      value: debian-10
+    - name: OS_NAME
+      value: linux
+    - name: BITNAMI_APP_NAME
+      value: mariadb
+    - name: ALLOW_EMPTY_PASSWORD
+      value: "yes"
+    - name: HOME
+      value: /
+    - name: OS_ARCH
+      value: amd64
+    - name: MARIADB_USER
+      value: bn_jasperreports
+    - name: MARIADB_DATABASE
+      value: bitnami_jasperreports
+    image: docker.io/bitnami/mariadb:latest
+    name: mariadb
+    ports:
+    - containerPort: 8080
+      hostPort: 8090
+      protocol: TCP
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      capabilities:
+        drop:
+        - CAP_MKNOD
+        - CAP_NET_RAW
+        - CAP_AUDIT_WRITE
+      privileged: false
+      readOnlyRootFilesystem: false
+      runAsGroup: 0
+      runAsUser: 1001
+      seLinuxOptions: {}
+    workingDir: /
+  - args:
+    - nami
+    - start
+    - --foreground
+    - tomcat
+    command:
+    - /app-entrypoint.sh
+    env:
+    - name: PATH
+      value: /opt/bitnami/java/bin:/opt/bitnami/tomcat/bin:/opt/bitnami/mysql/bin:/opt/bitnami/git/bin:/opt/bitnami/common/bin:/opt/bitnami/nami/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    - name: TERM
+      value: xterm
+    - name: container
+      value: podman
+    - name: MARIADB_ROOT_USER
+      value: root
+    - name: OS_ARCH
+      value: amd64
+    - name: ALLOW_EMPTY_PASSWORD
+      value: "yes"
+    - name: SMTP_HOST
+    - name: JASPERREPORTS_EMAIL
+      value: user@example.com
+    - name: MYSQL_CLIENT_ENABLE_SSL
+      value: "no"
+    - name: MYSQL_CLIENT_CREATE_DATABASE_PASSWORD
+    - name: JASPERREPORTS_DATABASE_NAME
+      value: bitnami_jasperreports
+    - name: JASPERREPORTS_PASSWORD
+      value: bitnami
+    - name: SMTP_PASSWORD
+    - name: JASPERREPORTS_DATABASE_USER
+      value: bn_jasperreports
+    - name: MYSQL_CLIENT_CREATE_DATABASE_USER
+    - name: MARIADB_PORT_NUMBER
+      value: "3306"
+    - name: OS_NAME
+      value: linux
+    - name: JASPERREPORTS_DATABASE_PASSWORD
+    - name: OS_FLAVOUR
+      value: debian-10
+    - name: MYSQL_CLIENT_CREATE_DATABASE_NAME
+    - name: BITNAMI_IMAGE_VERSION
+      value: 7.8.0-debian-10-r139
+    - name: MARIADB_HOST
+      value: mariadb
+    - name: MYSQL_CLIENT_SSL_CA_FILE
+    - name: SMTP_EMAIL
+    - name: MYSQL_CLIENT_CREATE_DATABASE_PRIVILEGES
+      value: ALL
+    - name: JASPERREPORTS_USERNAME
+      value: user
+    - name: SMTP_PROTOCOL
+    - name: SMTP_USER
+    - name: MARIADB_ROOT_PASSWORD
+    - name: SMTP_PORT
+    - name: BITNAMI_APP_NAME
+      value: jasperreports
+    image: docker.io/bitnami/jasperreports:latest
+    name: jasperreports
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      capabilities:
+        drop:
+        - CAP_MKNOD
+        - CAP_NET_RAW
+        - CAP_AUDIT_WRITE
+      privileged: false
+      readOnlyRootFilesystem: false
+      seLinuxOptions: {}
+    workingDir: /
+  dnsConfig: {}
+  restartPolicy: Never
+status: {}
+
